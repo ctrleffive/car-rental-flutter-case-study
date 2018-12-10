@@ -1,4 +1,4 @@
-# TRANZ
+# Car Rental
 
 ![version](https://img.shields.io/badge/Beta-0.0.1-yellow.svg)
 
