@@ -27,7 +27,7 @@ class SearchList extends StatelessWidget {
                       Text('8 Fleets Available', style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 23,
-                        height: 1.1
+                        height: 1.1,
                       )),
                       SizedBox(height: 5),
                       Row(

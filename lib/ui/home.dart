@@ -5,10 +5,31 @@ import 'package:car_rental/models/form_data/search.dart';
 import 'package:car_rental/ui/partials/glow_button.dart';
 import 'package:car_rental/ui/partials/gradient_bg.dart';
 import 'package:car_rental/ui/partials/custom_input.dart';
+import 'package:rxdart/subjects.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  HomeState createState() {
+    return new HomeState();
+  }
+}
+
+class HomeState extends State<Home> {
   final GlobalKey<FormState> _searchFormKey = GlobalKey<FormState>();
+  final BehaviorSubject<String> _startDateStream = BehaviorSubject<String>();
+  final BehaviorSubject<String> _startTimeStream = BehaviorSubject<String>();
+  final BehaviorSubject<String> _endDateStream = BehaviorSubject<String>();
+  final BehaviorSubject<String> _endTimeStream = BehaviorSubject<String>();
   final SearchData _data = SearchData();
+
+  @override
+  void dispose() {
+    _startDateStream.close();
+    _startTimeStream.close();
+    _endDateStream.close();
+    _endTimeStream.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +55,7 @@ class Home extends StatelessWidget {
                   Text('Easy & Experienced\nWay to Rent a Car', style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 23,
-                    height: 1.1
+                    height: 1.1,
                   )),
                   SizedBox(height: 25),
                   CustomInput(
@@ -48,32 +69,40 @@ class Home extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Flexible(
-                        child: CustomInput(
-                          hintText: 'Pick a Date',
-                          icon: Icons.calendar_today,
-                          onTap: () async {
-                            final DateTime startDate = await showDatePicker(
-                              context: context,
-                              firstDate: DateTime.now(),
-                              initialDate: DateTime.now(),
-                              lastDate: DateTime.now(),
-                              initialDatePickerMode: DatePickerMode.day,
-                            );
-                          },
+                        child: StreamBuilder(
+                          initialData: 'Pick a Date',
+                          stream: this._startDateStream.stream,
+                          builder: (_, AsyncSnapshot<String> startDateSnapshot) => CustomInput(
+                            hintText: startDateSnapshot.data,
+                            icon: Icons.calendar_today,
+                            onTap: () async {
+                              final DateTime startDate = await showDatePicker(
+                                context: context,
+                                firstDate: DateTime.now(),
+                                initialDate: DateTime.now(),
+                                lastDate: DateTime.now(),
+                                initialDatePickerMode: DatePickerMode.day,
+                              );
+                            },
+                          ),
                         ),
                       ),
                       SizedBox(width: 15),
                       Flexible(
-                        child: CustomInput(
-                          hintText: 'Pick a Time',
-                          icon: Icons.access_time,
-                          onTap: () async {
-                            final TimeOfDay startTime = await showTimePicker(
-                              context: context,
-                              initialTime: TimeOfDay.now()
-                            );
-                          },
-                        )
+                        child: StreamBuilder(
+                          initialData: 'Pick a Time',
+                          stream: this._startTimeStream.stream,
+                          builder: (_, AsyncSnapshot<String> startTimeSnapshot) => CustomInput(
+                            hintText: startTimeSnapshot.data,
+                            icon: Icons.access_time,
+                            onTap: () async {
+                              final TimeOfDay startTime = await showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay.now()
+                              );
+                            },
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -83,31 +112,39 @@ class Home extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Flexible(
-                        child: CustomInput(
-                          hintText: 'Pick a Date',
-                          icon: Icons.calendar_today,
-                          onTap: () async {
-                            final DateTime startDate = await showDatePicker(
-                              context: context,
-                              firstDate: DateTime.now(),
-                              initialDate: DateTime.now(),
-                              lastDate: DateTime.now(),
-                              initialDatePickerMode: DatePickerMode.day,
-                            );
-                          },
+                        child: StreamBuilder(
+                          initialData: 'Pick a Date',
+                          stream: this._endDateStream.stream,
+                          builder: (_, AsyncSnapshot<String> endDateSnapshot) => CustomInput(
+                            hintText: endDateSnapshot.data,
+                            icon: Icons.calendar_today,
+                            onTap: () async {
+                              final DateTime endDate = await showDatePicker(
+                                context: context,
+                                firstDate: DateTime.now(),
+                                initialDate: DateTime.now(),
+                                lastDate: DateTime.now(),
+                                initialDatePickerMode: DatePickerMode.day,
+                              );
+                            },
+                          ),
                         ),
                       ),
                       SizedBox(width: 15),
                       Flexible(
-                        child: CustomInput(
-                          hintText: 'Pick a Time',
-                          icon: Icons.access_time,
-                          onTap: () async {
-                            final TimeOfDay startTime = await showTimePicker(
-                              context: context,
-                              initialTime: TimeOfDay.now()
-                            );
-                          },
+                        child: StreamBuilder(
+                          initialData: 'Pick a Time',
+                          stream: this._endTimeStream.stream,
+                          builder: (_, AsyncSnapshot<String> endTimeSnapshot) => CustomInput(
+                            hintText: endTimeSnapshot.data,
+                            icon: Icons.access_time,
+                            onTap: () async {
+                              final TimeOfDay endTime = await showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay.now()
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
