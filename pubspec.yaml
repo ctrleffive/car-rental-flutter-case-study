@@ -10,19 +10,21 @@ dependencies:
   flutter:
     sdk: flutter
   rxdart: ^0.20.0
+  http: ^0.12.0+1
+  cached_network_image: ^0.5.1
 
 flutter:
   uses-material-design: true
   assets:
-  - assets/images/logo.png
+    - assets/images/logo.png
   fonts:
-  - family: NunitoSans
-    fonts:
-    - asset: assets/fonts/NunitoSans-Bold.ttf
-      weight: 700
-    - asset: assets/fonts/NunitoSans-Regular.ttf
-      weight: 400
-    - asset: assets/fonts/NunitoSans-Light.ttf
-      weight: 300
-    - asset: assets/fonts/NunitoSans-ExtraLight.ttf
-      weight: 200
+    - family: NunitoSans
+      fonts:
+        - asset: assets/fonts/NunitoSans-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/NunitoSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/NunitoSans-Light.ttf
+          weight: 300
+        - asset: assets/fonts/NunitoSans-ExtraLight.ttf
+          weight: 200
